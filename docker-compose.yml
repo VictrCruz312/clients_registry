@@ -4,6 +4,7 @@ services:
   api:
     container_name: api
     build: .
+    command: "yarn typeorm migration:run -d src/data-source"
     ports:
       - 3000:3000
     env_file:
