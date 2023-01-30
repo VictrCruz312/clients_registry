@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_HOST=db_clients_registry
+      - NODE_ENV=development
+    depends_on:
+      db_clients_registry:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
+  db_clients_registry:
+    container_name: db_clients_registry
+    image: postgres:14-alpine
+    ports:
+      - 5436:5432
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
