@@ -3,10 +3,12 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from "typeorm";
+import { User } from "./user.entity";
 
 @Entity("contact")
-export class User {
+export class Contact {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
@@ -24,4 +26,7 @@ export class User {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @ManyToOne(() => User, (user) => user.contacts, { eager: false })
+  user: User;
 }
