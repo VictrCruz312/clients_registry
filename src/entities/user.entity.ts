@@ -27,6 +27,9 @@ export class User {
   @Column()
   cellphone: string;
 
+  @Column({ default: false })
+  admin: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

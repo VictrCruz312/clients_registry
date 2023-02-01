@@ -5,13 +5,13 @@ import getContactsService from "../services/contacts/getContacts.service";
 import updateContactService from "../services/contacts/updateContact.service";
 
 export const createContactController = async (req: Request, res: Response) => {
-  const contact = await createContactService(req.body, req.body.userLogged.id);
+  const contact = await createContactService(req.body, req.params.id);
 
   res.status(201).send(contact);
 };
 
 export const getContactsController = async (req: Request, res: Response) => {
-  const contacts = await getContactsService(req.body.userLogged.id);
+  const contacts = await getContactsService(req.params.id);
 
   return res.status(200).json(contacts);
 };

@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { decode } from "punycode";
 import { AppError } from "../errors/AppError";
 
-const authUserMiddleware = (
+const authAdminMiddleware = (
   request: Request,
   response: Response,
   next: NextFunction
@@ -24,20 +24,14 @@ const authUserMiddleware = (
         throw new AppError("token inválido", 401);
       }
 
-      if (decoded.admin) {
-        request.body.userLogged = { id: decoded.sub };
-        return next();
-      }
-
-      if (decoded.sub !== request.params.id) {
-        throw new AppError("sem permissão", 401);
+      if (!decoded.admin) {
+        throw new AppError("Somente admins tem acesso a essa rota", 401);
       }
 
       request.body.userLogged = { id: decoded.sub };
-
       next();
     }
   );
 };
 
-export default authUserMiddleware;
+export default authAdminMiddleware;
