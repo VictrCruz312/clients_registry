@@ -8,7 +8,7 @@ const deleteContactService = async (userId: string, contactId: string) => {
     where: { id: contactId },
     relations: { user: true },
   });
-  console.log("contatoss: ", contactExists);
+
   if (!contactExists) {
     throw new AppError("contato não encontrado não encontrado", 404);
   }

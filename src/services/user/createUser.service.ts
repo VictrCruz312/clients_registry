@@ -4,7 +4,7 @@ import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 import { createUserSchema } from "../../schemas/user.schema";
 
-const createUserService = async (data: User) => {
+const createUserService = async (data: User, admin: boolean = false) => {
   const userRepository = AppDataSource.getRepository(User);
 
   const userValidated = await createUserSchema
@@ -12,7 +12,7 @@ const createUserService = async (data: User) => {
     .catch((error) => {
       throw new AppError("error", 400, error.errors);
     });
-  console.log(userValidated);
+
   const emailAlreadyExists = await userRepository.findOneBy({
     email: userValidated.email,
   });
@@ -23,6 +23,7 @@ const createUserService = async (data: User) => {
   const user = userRepository.create({
     email: userValidated.email,
     name: userValidated.name,
+    admin: admin,
     password: hashSync(userValidated.password, 10),
     cellphone: userValidated.cellphone,
     telephone: userValidated.telephone ? userValidated.telephone : undefined,
