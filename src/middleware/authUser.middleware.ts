@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import jwt from "jsonwebtoken";
+import { decode } from "punycode";
 import { AppError } from "../errors/AppError";
 
 const authUserMiddleware = (
@@ -22,6 +23,16 @@ const authUserMiddleware = (
       if (error) {
         throw new AppError("token inválido", 401);
       }
+
+      if (decoded.admin) {
+        request.body.userLogged = { id: decoded.sub };
+        return next();
+      }
+
+      if (decoded.sub !== request.params.id) {
+        throw new AppError("sem permissão", 401);
+      }
+
       request.body.userLogged = { id: decoded.sub };
 
       next();
