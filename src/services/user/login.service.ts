@@ -20,7 +20,7 @@ const loginService = async (data: any) => {
   }
 
   const token = jwt.sign(
-    { email: userExists.email },
+    { admin: userExists.admin },
     process.env.SECRET_KEY as string,
     { expiresIn: "24h", subject: userExists.id }
   );
