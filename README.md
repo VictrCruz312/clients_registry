@@ -22,7 +22,9 @@ você terá uma solução completa e eficiente para gerenciar seus clientes e se
 2. Entre no diretório do projeto: `cd clients_registry`
 3. Crie um arquivo `.env` com as configurações de sua aplicação (veja o arquivo `.env.example` como referência)
 4. Execute o comando `docker-compose up` para iniciar os containers. você pode usar a tag `-d` no final do comando para não travar o terminal nos logs do container
-5. Acesse a aplicação em `http://localhost:3000/docs` e confira todas as rotas da API.
+5. Acesse a aplicação em `http://localhost:3000`
+
+Para conferir as rotas da aplicação abra o programa insomnia e carregue as rotas do arquivo `insomnia-clients_registry.json` que está na raiz do projeto dentro do insomnia
 
 ## Créditos
 clients_registry foi desenvolvido por [VictrCruz312](https://github.com/VictrCruz312) com o objetivo de criar uma solução
