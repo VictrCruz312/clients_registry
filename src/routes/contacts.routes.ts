@@ -9,7 +9,7 @@ import authUserMiddleware from "../middleware/authUser.middleware";
 
 const contactsRouter = Router();
 
-contactsRouter.post("", authUserMiddleware, createContactController);
+contactsRouter.post("/:id", authUserMiddleware, createContactController);
 contactsRouter.get("/:id", authUserMiddleware, getContactsController);
 contactsRouter.delete("/:id", authUserMiddleware, deleteContactController);
 contactsRouter.patch("/:id", authUserMiddleware, updateContactController);
